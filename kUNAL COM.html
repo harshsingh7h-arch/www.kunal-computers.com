@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KC Computers </title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial}
+body{background:#f6f8fb;color:#222;padding-bottom:80px}
+a{text-decoration:none}
+/* TOP BAR */
+.topbar{background:#0a1a33;color:white;display:flex;justify-content:space-between;align-items:center;padding:10px 14px;position:sticky;top:0;z-index:100}
+.topbar b{font-size:19px;color:#ffc107}.topbar b span{color:white}
+.topbar div{display:flex;gap:8px}
+.topbar a{background:#ffc107;color:#000;padding:7px 12px;border-radius:20px;font-size:12px;font-weight:900}
+.topbar a:last-child{background:#25D366;color:white}
+/* CAROUSEL */
+.carousel{position:relative;width:100%;height:280px;overflow:hidden;background:#000}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .7s}
+.slide.active{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover}
+.slide .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85),transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:18px;color:white}
+.slide .overlay small{background:#ffc107;color:#000;padding:4px 10px;border-radius:20px;font-weight:900;font-size:11px;width:fit-content;margin-bottom:8px}
+.slide .overlay h2{font-size:24px;line-height:1.2}
+.slide .overlay p{font-size:13px;opacity:.9;margin:6px 0 12px;line-height:1.5}
+.slide .overlay div{display:flex;gap:8px}
+.btn{padding:11px 18px;border-radius:12px;font-weight:900;font-size:13px;border:none;cursor:pointer}
+.btn-yellow{background:#ffc107;color:#000}.btn-white{background:white;color:#000}.btn-green{background:#25D366;color:white}
+.dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:10}
+.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer}
+.dot.active{background:#ffc107;width:24px;border-radius:20px}
+/* SEARCH + OFFER */
+.searchBar{margin:-18px 14px 0;position:relative;z-index:20;background:white;padding:12px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.12);display:flex;gap:8px}
+.searchBar input{flex:1;padding:12px;border:1px solid #ddd;border-radius:11px;outline:none}
+.searchBar button{background:#0a1a33;color:white;border:none;padding:0 16px;border-radius:11px;font-weight:900}
+.offer{background:linear-gradient(135deg,#ff3d00,#ff9800);margin:14px;border-radius:16px;padding:14px;color:white;display:flex;justify-content:space-between;align-items:center}
+.offer b{font-size:15px}.offer p{font-size:12px;opacity:.9}
+.offer span{background:white;color:#ff3d00;padding:8px 12px;border-radius:10px;font-weight:900;font-size:12px;white-space:nowrap}
+/* STATS */
+.stats{display:flex;gap:8px;padding:0 14px}
+.stat{flex:1;background:white;padding:12px;border-radius:14px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.stat b{font-size:18px;display:block;color:#0a1a33}.stat span{font-size:11px;color:#888}
+/* SECTION */
+.section{padding:16px 14px 0}
+.section h2{font-size:20px;text-align:center}.section h2 span{color:#ffc107}
+.section>p{text-align:center;color:#777;font-size:12.5px;margin:6px 0 14px;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:white;border-radius:16px;padding:14px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06);border:1px solid #f0f0f0;cursor:pointer}
+.card:hover{transform:translateY(-2px);border-color:#ffc107}
+.card .icon{font-size:32px}.card h3{font-size:14px;margin:8px 0 4px}.card p{font-size:11.5px;color:#777;line-height:1.5}.card .price{color:#00a651;font-weight:900;font-size:12px;margin-top:6px}
+.card .tag{display:inline-block;background:#fff3cd;color:#856404;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:800;margin-top:6px}
+/* WHY US */
+.why{background:#0a1a33;color:white;margin:16px 14px 0;border-radius:18px;padding:18px}
+.why h2{text-align:center}.whyGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.whyItem{background:rgba(255,255,255,.08);padding:12px;border-radius:12px;text-align:center}.whyItem div{font-size:22px}.whyItem b{font-size:12px;display:block;margin:5px 0 3px}.whyItem p{font-size:11px;opacity:.8}
+/* FOUNDER - BEST DESIGN */
+.founder{margin:16px 14px 0;background:white;border-radius:22px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.founderTop{background:linear-gradient(135deg,#0a1a33,#1a3a6a);padding:22px 18px 55px;text-align:center;color:white;position:relative}
+.founderTop small{background:#ffc107;color:#000;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:900}
+.founderTop h2{font-size:21px;margin-top:10px}.founderTop p{font-size:12px;opacity:.85;line-height:1.6;margin-top:6px}
+.founderImg{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#ffc107,#ff9800);color:#0a1a33;font-size:48px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:-45px auto 0;border:5px solid white;box-shadow:0 8px 20px rgba(0,0,0,.2);position:relative;z-index:2}
+.founderBody{padding:14px 18px 18px;text-align:center}
+.founderBody h3{font-size:19px}.founderBody .role{color:#1a5cff;font-weight:800;font-size:12.5px;margin:3px 0}
+.founderBody p{font-size:13px;color:#555;line-height:1.7}
+.badges{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0}
+.badges span{background:#eef3ff;color:#1a5cff;padding:6px 11px;border-radius:20px;font-size:11px;font-weight:800}
+.founderStats{display:flex;gap:8px;margin:12px 0}
+.founderStats div{flex:1;background:#f8f9ff;padding:10px;border-radius:12px}.founderStats b{font-size:16px;display:block}.founderStats span{font-size:10px;color:#888}
+.founderBtns{display:flex;gap:8px}
+.founderBtns a{flex:1;text-align:center;padding:12px;border-radius:12px;font-weight:900;font-size:13px}
+.callBtn{background:#0a1a33;color:white}.waBtn{background:#25D366;color:white}
+/* REVIEWS */
+.review{background:white;border-radius:14px;padding:12px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.review b{font-size:13px}.review .stars{color:#ffc107;font-size:13px}.review p{font-size:12.5px;color:#555;line-height:1.6;margin-top:5px}
+/* BOOKING */
+.booking{background:white;margin:16px 14px 0;border-radius:18px;padding:16px;box-shadow:0 5px 20px rgba(0,0,0,.08)}
+.booking h2{text-align:center;font-size:18px}.booking input,.booking select,.booking textarea{width:100%;padding:12px;margin-top:10px;border:1px solid #ddd;border-radius:11px;outline:none}
+.booking button{width:100%;background:#25D366;color:white;border:none;padding:14px;border-radius:12px;font-weight:900;margin-top:12px;cursor:pointer}
+/* ADDRESS */
+.address{background:white;margin:16px 14px 0;border-radius:18px;padding:16px}
+.address h2{text-align:center;font-size:18px;margin-bottom:12px}
+.addrRow{display:flex;gap:10px;padding:10px 0;border-bottom:1px dashed #eee;font-size:13px}
+.addrRow b{width:70px;color:#0a1a33}.addrRow span{flex:1;line-height:1.6}
+.mapBtn{display:block;background:#00a651;color:white;text-align:center;padding:13px;border-radius:12px;font-weight:900;margin-top:14px}
+.footer{text-align:center;padding:18px;color:#888;font-size:11px;line-height:1.7}
+/* BOTTOM NAV */
+.bottomNav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;box-shadow:0 -5px 20px rgba(0,0,0,.1);z-index:100}
+.bottomNav a{flex:1;text-align:center;padding:10px 0;font-size:11px;color:#666;font-weight:700}
+.bottomNav a div{font-size:20px}.bottomNav a.active{color:#0a1a33}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+<b>KC <span>Computers</span></b>
+<div><a href="tel:9769697282">📞 CALL</a><a href="https://wa.me/919769697282">💬 WhatsApp</a></div>
+</div>
+
+<!-- IMAGE CAROUSEL -->
+<div class="carousel" id="carousel">
+  <div class="slide active">
+    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800">
+    <div class="overlay"><small>🔥 BEST OFFER</small><h2>Laptop Repair in 1 Hour!</h2><p>Slow, Hang, Virus, Screen, Battery - All Problems Solved. 6 Months Guarantee.</p><div><button class="btn btn-yellow" onclick="bookService('Laptop Repair')">Book Repair Now →</button><button class="btn btn-white" onclick="scrollToId('services')">View Services</button></div></div>
+  </div>
+  <div class="slide">
+    <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=800">
+    <div class="overlay"><small>💻 NEW LAPTOPS</small><h2>HP / Dell / Lenovo - Best Price!</h2><p>Brand New Laptops with Bill + Warranty. Student Discount Available.</p><div><button class="btn btn-yellow" onclick="bookService('New Laptop')">Check Price →</button></div></div>
+  </div>
+  <div class="slide">
+    <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=800">
+    <div class="overlay"><small>⚡ SSD UPGRADE</small><h2>Old Laptop = New in 30 Min!</h2><p>SSD + RAM Upgrade. Your Slow Laptop Will Run 10x Faster!</p><div><button class="btn btn-yellow" onclick="bookService('SSD Upgrade')">Upgrade Now →</button></div></div>
+  </div>
+  <div class="slide">
+    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800">
+    <div class="overlay"><small>🌐 WIFI / CCTV / NETWORKING</small><h2>Home & Office Setup</h2><p>WiFi, Printer, CCTV, Networking - Complete IT Setup by Experts.</p><div><button class="btn btn-green" onclick="bookService('Networking')">Get Free Visit →</button></div></div>
+  </div>
+  <div class="dots" id="dots"></div>
+</div>
+
+<div class="searchBar">
+<input id="searchInput" placeholder="🔍 Search: Laptop Repair, SSD, WiFi, HP..." oninput="filterServices()">
+<button onclick="filterServices()">Search</button>
+</div>
+
+<div class="offer">
+<div><b></b><p>On All Laptop Repair & SSD Upgrade</p></div><span onclick="bookService('Offer 20% OFF')"></span>
+</div>
+
+<div class="stats">
+<div class="stat"><b>10+ Years</b><span>Experience</span></div>
+<div class="stat"><b>5000+</b><span>Happy Customers</span></div>
+<div class="stat"><b>4.9 ★</b><span>Google Rating</span></div>
+<div class="stat"><b>6 Months</b><span>Guarantee</span></div>
+</div>
+
+<div class="section" id="services">
+<h2>Our <span>Services</span></h2>
+<p>Click any service to Book on WhatsApp instantly. Transparent Pricing. No Hidden Charges.</p>
+<div class="grid" id="serviceGrid">
+<div class="card" data-name="laptop repair slow hang virus screen battery" onclick="bookService('Laptop Repair')"><div class="icon">🛠️</div><h3>Laptop Repair</h3><p>Laptop / Desktop - Slow, Hang, Virus, Screen, Battery Repairs</p><div class="price"></div><span class="tag"></span></div>
+<div class="card" data-name="new computer sales hp dell lenovo laptop" onclick="bookService('New Computer')"><div class="icon">💻</div><h3>New Computer Sales</h3><p>HP, Dell, Lenovo - With Bill & Warranty</p><div class="price">Best Price Guarantee</div><span class="tag"></span></div>
+<div class="card" data-name="upgrades ssd ram speed" onclick="bookService('SSD / RAM Upgrade')"><div class="icon">⚡</div><h3>Upgrades - SSD / RAM</h3><p>Make Old Laptop 10x Faster in 30 Minutes</p><div class="price">SSD </div><span class="tag"></span></div>
+<div class="card" data-name="networking wifi cctv printer setup" onclick="bookService('Networking / WiFi')"><div class="icon">🌐</div><h3>Networking / WiFi</h3><p>WiFi, Printer, CCTV Setup - Home & Office</p><div class="price">Free Visit</div><span class="tag">🏠 Home Visit</span></div>
+<div class="card" data-name="web designing website" onclick="bookService('Web Designing')"><div class="icon">🎨</div><h3>Web Designing</h3><p>Business Website, Online Shop, Portfolio</p><div class="price"></div><span class="tag">✨ New Service</span></div>
+<div class="card" data-name="software install windows ms office tally antivirus" onclick="bookService('Software Install')"><div class="icon">💿</div><h3>Software Install</h3><p>Windows, MS Office, Tally, Antivirus</p><div class="price"></div><span class="tag">✅ Genuine</span></div>
+<div class="card" data-name="amc it support annual" onclick="bookService('AMC / IT Support')"><div class="icon">🤝</div><h3>AMC / IT Support</h3><p>Monthly Support for Shops, Schools & Offices</p><div class="price">Custom Plan</div><span class="tag">🏢 For Business</span></div>
+<div class="card" data-name="second hand computer refurbished laptop" onclick="bookService('Second Hand Computer')"><div class="icon">♻️</div><h3>Second Hand Computer</h3><p>Refurbished Laptop / Desktop - 6 Months Warranty</p><div class="price">Low Cost - High Value</div><span class="tag">💰 Budget Friendly</span></div>
+</div>
+</div>
+
+<div class="why">
+<h2>Why Choose KC Computers?</h2>
+<div class="whyGrid">
+<div class="whyItem"><div>✅</div><b>Trusted & Genuine</b><p>Original Parts Only</p></div>
+<div class="whyItem"><div>⚡</div><b>Fast Service</b><p>Same Day Repair</p></div>
+<div class="whyItem"><div>💰</div><b>Best Price</b><p>No Hidden Charges</p></div>
+<div class="whyItem"><div>🛡️</div><b>6 Months Warranty</b><p>On All Repairs</p></div>
+</div>
+</div>
+
+<!-- FOUNDER - BEST DESIGN -->
+<div class="founder" id="founder">
+<div class="founderTop">
+<small>⭐ FOUNDER & OWNER</small>
+<h2>Meet The Expert Behind<br>KC Computers</h2>
+<p>10+ Years of Experience • 5000+ Happy Customers<br>Palghar's Most Trusted Computer Expert</p>
+</div>
+<div class="founderImg">K</div>
+<div class="founderBody">
+<h3>Kunal Patil</h3>
+<div class="role">Founder, KC Computers • Computer Expert</div>
+<p>Kunal Patil is the <b>Founder and Owner</b> of KC Computers. He is an expert in <b>Computer Software, Repair, Networking, and IT Solutions</b> with <b>10+ years of experience</b> in Computer Software and IT Fields.<br><br>His mission is simple - <i>"Provide affordable, professional, and customer-focused computer solutions so every client stays connected, productive, and secure."</i></p>
+<div class="badges"><span>✔️ 10+ Years Expert</span><span>✔️ Software Specialist</span><span>✔️ Hardware Master</span><span>✔️ IT Trainer</span></div>
+<div class="founderStats"><div><b>5000+</b><span>Customers Served</span></div><div><b>10+ Years</b><span>Experience</span></div><div><b>4.9 ★</b><span>Customer Rating</span></div></div>
+<div class="founderBtns"><a class="callBtn" href="tel:9769697282">📞 Call Kunal</a><a class="waBtn" href="https://wa.me/919769697282?text=Hi%20Kunal%20Sir,%20I%20need%20computer%20help">💬 WhatsApp Kunal</a></div>
+<p style="font-size:11px;color:#999;margin-top:10px">📞 Direct: 9769697282 &nbsp;•&nbsp; Available Mon-Sat</p>
+</div>
+</div>
+
+<div class="section">
+<h2>⭐ Customer <span>Reviews</span></h2>
+<p>What our customers say about us</p>
+<div class="review"><b>Ramesh Sharma</b> <span class="stars">★★★★★</span><br><p>"My laptop was very slow. Kunal sir upgraded SSD in 30 minutes. Now it runs like new! Best shop in Palghar."</p></div>
+<div class="review"><b>Priya Patel</b> <span class="stars">★★★★★</span><br><p>"Bought HP laptop for my son. Best price, genuine bill, and very helpful. Highly recommended!"</p></div>
+<div class="review"><b>Amit Verma - Shop Owner</b> <span class="stars">★★★★★</span><br><p>"AMC for my office. WiFi, Printer, CCTV all setup done. Very professional service."</p></div>
+</div>
+
+<div class="booking" id="booking">
+<h2>📝 Book Service - Free Visit</h2>
+<p style="text-align:center;font-size:12px;color:#777;margin-top:5px">Fill form, we will call you back in 10 minutes!</p>
+<input id="custName" placeholder="Your Name *">
+<input id="custPhone" placeholder="Phone Number *" type="tel">
+<select id="custService"><option>Laptop Repair</option><option>New Computer Sales</option><option>SSD / RAM Upgrade</option><option>Networking / WiFi</option><option>Web Designing</option><option>Software Install</option><option>AMC / IT Support</option><option>Second Hand Computer</option></select>
+<textarea id="custMsg" placeholder="Describe your problem... e.g. Laptop slow, screen broken"></textarea>
+<button onclick="sendBooking()">📱 BOOK ON WHATSAPP</button>
+</div>
+
+<div class="address" id="address">
+<h2>📍 Address Information</h2>
+<div class="addrRow"><b>Street:</b><span>Shop No. 208, 2nd Floor, The Edge, Behind Prakash Talkies, Palghar</span></div>
+<div class="addrRow"><b>City:</b><span>Mumbai</span></div>
+<div class="addrRow"><b>State:</b><span>Maharashtra</span></div>
+<div class="addrRow"><b>ZIP Code:</b><span>411001</span></div>
+<div class="addrRow"><b>Contact:</b><span>9769697282 / 9272015086</span></div>
+<div class="addrRow"><b>Timing:</b><span>Mon - Sat: 11 AM to 8 PM<br>Sunday: 11 AM to 5 PM</span></div>
+<a class="mapBtn" href="https://www.google.com/maps/search/?api=1&query=KC+Computers+Palghar+Behind+Prakash+Talkies" target="_blank">📍 LIVE LOCATION - Open in Google Maps</a>
+</div>
+
+<div class="footer">
+<b style="color:#0a1a33;font-size:14px">KC COMPUTERS</b><br>
+Your Trusted Partner for Computer Sales, Repairs, Upgrades & IT Support.<br>
+Website Designed by Harsh • Powered by KC Computers<br>© 2026 KC Computers. All Rights Reserved.
+</div>
+
+<div class="bottomNav">
+<a href="#" class="active"><div>🏠</div>Home</a>
+<a href="#services"><div>🛠️</div>Services</a>
+<a href="#founder"><div>👤</div>Founder</a>
+<a href="#booking"><div>📝</div>Book</a>
+<a href="tel:9769697282"><div>📞</div>Call</a>
+</div>
+
+<script>
+let slides=document.querySelectorAll(".slide");
+let dotsBox=document.getElementById("dots");
+let cur=0;
+slides.forEach((_,i)=>{let d=document.createElement("div");d.className="dot"+(i===0?" active":"");d.onclick=()=>showSlide(i);dotsBox.appendChild(d)});
+function showSlide(n){cur=n;slides.forEach((s,i)=>s.classList.toggle("active",i===n));document.querySelectorAll(".dot").forEach((d,i)=>d.classList.toggle("active",i===n))}
+setInterval(()=>{showSlide((cur+1)%slides.length)},4000);
+function filterServices(){
+  let q=document.getElementById("searchInput").value.toLowerCase();
+  document.querySelectorAll("#serviceGrid .card").forEach(c=>{
+    c.style.display=c.getAttribute("data-name").includes(q)?"block":"none";
+  });
+}
+function bookService(service){
+  let msg="Hi KC Computers! I want: "+service+". Please share price & details.";
+  window.open("https://wa.me/919769697282?text="+encodeURIComponent(msg),"_blank");
+}
+function sendBooking(){
+  let n=document.getElementById("custName").value.trim();
+  let p=document.getElementById("custPhone").value.trim();
+  let s=document.getElementById("custService").value;
+  let m=document.getElementById("custMsg").value.trim();
+  if(!n||!p){alert("Please enter Name and Phone!");return;}
+  let msg=`Hi KC Computers! New Booking:\nName: ${n}\nPhone: ${p}\nService: ${s}\nProblem: ${m}`;
+  window.open("https://wa.me/919769697282?text="+encodeURIComponent(msg),"_blank");
+}
+function scrollToId(id){document.getElementById(id).scrollIntoView({behavior:"smooth"})}
+</script>
+</body>
+</html>
